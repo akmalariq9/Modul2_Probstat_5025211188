@@ -226,7 +226,7 @@ Berikut merupakan hasil yang diperoleh setelah perhitungan dengan RStudio.
 ![4C](https://user-images.githubusercontent.com/109916703/207295124-f379fd31-fe0a-4173-8026-a9afb052c30c.png)
 
 - **Soal 4D :** <br>
-Dari Hasil Poin C , Berapakah nilai-p ? ,  Apa yang dapat Anda simpulkan dari $H_0$ ?
+Dari Hasil Poin C, Berapakah nilai-p? Apa yang dapat Anda simpulkan dari $H_0$ ?
 
 **Penyelesaian Soal 4D :**\
 Setelah dilakukan perhitungan didapatkan nilai _P-value_ bernilai **0.0013**, dan nilai tersebut jauh lebih kecil daripada tingkat signifikansi 𝛼 = 0.05. $H_0$ ditolak atau dengan kata lain ada setidaknya satu pasang populasi yang memiliki rata-rata panjang berbeda.
@@ -258,4 +258,98 @@ ggplot(myData, aes(x = Group, y = Length)) + geom_boxplot(fill = "gray50", colou
 ```
 ## **Soal Nomor 5**
 Data yang digunakan merupakan hasil eksperimen yang dilakukan untuk mengetahui pengaruh suhu operasi (100˚C, 125˚C dan 150˚C) dan tiga jenis kaca pelat muka (A, B dan C) pada keluaran cahaya tabung osiloskop. Percobaan dilakukan sebanyak 27 kali dan didapat data sebagai berikut: 
-https://intip.in/DatasetPraktikum2Probstat <br>
+https://intip.in/Dataset2Praktikum2Probstat <br>
+
+- **Soal 5A :** <br> 
+Buatlah plot sederhana untuk visualisasi data!
+
+**Penyelesaian Soal 5A :**\
+Dalam melakukan visualisasi data, diperlukan beberapa _library_ yang harus diimport terlebih dahulu. Berikut adalah code yang digunakan dalam proses import _library_
+
+```R
+install.packages("multcompView")
+install.packages("readr")
+install.packages("dplyr")
+
+library(readr)
+library(ggplot2)
+library(multcompView)
+library(dplyr)
+```
+Kemudian, data yang berada pada _wesbite_ juga harus diimport agar dapat dibaca oleh RStudio. Berikut adalah code yang digunakan dalam proses import _dataset_
+```r
+myData <- read.csv("https://drive.google.com/u/0/uc?id=1aLUOdw_LVJq6VQrQEkuQhZ8FW43FemTJ&export=download")
+myData$Glass <- as.factor(myData$Glass)
+myData$Temp <- as.factor(myData$Temp)
+```
+Setelah data dapat dibaca oleh RStudio, maka visualisasi data dapat dilakukan. Untuk visualisasi data, digunakan fungsi `qplot` dengan beberapa parameter didalamnya. Berikut adalah code yang digunakan dalam proses visualisasi data
+```r
+qplot(x = Temp, y = Light, data = ExpData) + facet_grid(.~Glass) + geom_point()
+```
+Berikut merupakan hasil visualisasi data menggunakan RStudio.
+![5a](https://user-images.githubusercontent.com/109916703/207313936-448f8d27-5168-4e34-a5ee-6bec36a23c82.png)
+
+- **Soal 5B :** <br>
+Lakukan uji Anova dua arah untuk 2 faktor!
+
+**Penyelesaian Soal 5B :**\
+Uji Anova dua arah dengan dua faktor dapat dilakukan dengan fungsi `aov` dengan parameternya berupa kolom dari data yang telah diimport. Kemudian hasil dari uji tersebut ditampilkan dengan fungsi `summary`. Berikut merupakan code untuk melakukan uji anova  
+```r
+twowayanova <- aov(Light ~ Glass*Temp, data = ExpData)
+summary(twowayanova)
+```
+Berikut merupakan hasil pengerjaan soal 5B menggunakan RStudio.
+![5B](https://user-images.githubusercontent.com/109916703/207314001-170e902b-4f2e-4bb0-a541-9d2b3e8af564.png)
+
+- **Soal 5C :** <br>
+Tampilkan tabel dengan mean dan standar deviasi keluaran cahaya untuk setiap perlakuan (kombinasi kaca pelat muka dan suhu operasi)!
+  
+**Penyelesaian Soal 5C :**\
+Untuk menampilkan tabel yang berisi mean serta standar deviasi keluaran cahaya untuk seluruh perlakuan, diperlukan bantuan fungsi `group by`, `summarise`, dan `arrange` untuk mengelompokkan data sesuai perintah soal. Kemudian digunakan juga fungsi `print` untuk menampilkan hasil dari perhitungan yang telah dilakukan. Berikut adalah code yang digunakan untuk soal 5C.
+```r
+mean_sd_table <- group_by(ExpData, Glass, Temp) %>%
+  summarise(mean = mean(Light), sd = sd(Light)) %>%
+  arrange(desc(mean))
+print(mean_sd_table)
+``` 
+Berikut merupakan hasil pengerjaan soal 5C menggunakan RStudio.
+![5C](https://user-images.githubusercontent.com/109916703/207314162-0aee4f69-1670-4fce-8799-8c7f921851bc.png)
+
+- **Soal 5D :** <br>
+Lakukan uji Tukey!
+  
+**Penyelesaian Soal 5D :**\
+Untuk melakukan Uji Tukey, diperlukan fungsi `tukey` dengan parameter `twowayanova` yang telah kita buat pada soal 5B. Berikut adalah code yang digunakan untuk soal 5D.
+```r
+tukeytest <- TukeyHSD(twowayanova)
+print(tukeytest)
+```
+Berikut merupakan hasil pengerjaan soal 5D menggunakan RStudio.
+![5D](https://user-images.githubusercontent.com/109916703/207314341-26a49304-67c4-4046-82a3-7634ce36b09c.png)
+
+- **Soal 5E :** <br>
+Gunakan compact letter display untuk menunjukkan perbedaan signifikan antara uji Anova dan uji Tukey
+  
+**Penyelesaian Soal 5D :**\
+Sesuai dengan perintah pada soal, _compact letter_ dapat dibuat menggunakan fungsi `multcomLetterS4()` yang berasal dari library `multcompview`. Kemudian, selanjutnya tambahkan compact letter ke tabel dengan mean dan standar deviasi. Berikut adalah code yang digunakan untuk soal 5D
+```r
+library(multcompView)
+
+result <- multcompLetters4(twowayanova, tukeytest)
+result
+
+cld <- as.data.frame.list(result$`Glass:Temp`)
+mean_sd_table$CLD <- cld$Letters
+mean_sd_table
+```
+Berikut merupakan hasil pengerjaan soal 5D menggunakan RStudio.
+![5D](https://user-images.githubusercontent.com/109916703/207314426-7a69a60e-0893-4e2d-a868-1b7ed5396a29.png)
+<br>
+# **End Of The Line**
+```c
+#include<stdio.h>
+
+int main(){
+        printf("Thank you!");
+}
+```
