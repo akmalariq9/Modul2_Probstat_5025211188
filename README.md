@@ -299,6 +299,7 @@ twowayanova <- aov(Light ~ Glass*Temp, data = ExpData)
 summary(twowayanova)
 ```
 Berikut merupakan hasil pengerjaan soal 5B menggunakan RStudio.
+
 ![5B](https://user-images.githubusercontent.com/109916703/207314001-170e902b-4f2e-4bb0-a541-9d2b3e8af564.png)
 
 - **Soal 5C :** <br>
@@ -313,6 +314,7 @@ mean_sd_table <- group_by(ExpData, Glass, Temp) %>%
 print(mean_sd_table)
 ``` 
 Berikut merupakan hasil pengerjaan soal 5C menggunakan RStudio.
+
 ![5C](https://user-images.githubusercontent.com/109916703/207314162-0aee4f69-1670-4fce-8799-8c7f921851bc.png)
 
 - **Soal 5D :** <br>
@@ -325,6 +327,7 @@ tukeytest <- TukeyHSD(twowayanova)
 print(tukeytest)
 ```
 Berikut merupakan hasil pengerjaan soal 5D menggunakan RStudio.
+
 ![5D](https://user-images.githubusercontent.com/109916703/207314341-26a49304-67c4-4046-82a3-7634ce36b09c.png)
 
 - **Soal 5E :** <br>
@@ -343,6 +346,7 @@ mean_sd_table$CLD <- cld$Letters
 mean_sd_table
 ```
 Berikut merupakan hasil pengerjaan soal 5D menggunakan RStudio.
+
 ![5D](https://user-images.githubusercontent.com/109916703/207314426-7a69a60e-0893-4e2d-a868-1b7ed5396a29.png)
 <br>
 # **End Of The Line**
