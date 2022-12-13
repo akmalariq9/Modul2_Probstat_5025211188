@@ -154,5 +154,108 @@ Karena p-value yang didapat, yaitu **0.06049** lebih besar dari nilai 𝛼, maka
 - **Soal 3F :** <br>
 Keputusan yang didapat?
 
-**Penyelesaian Soal 3E :**\
+**Penyelesaian Soal 3F :**\
 Karena $H_0$ **diterima**, maka dapat disimpulkan bahwa tidak ada bukti yang cukup kuat bahwa terdapat perbedaan antara rata-rata saham di Bandung dengan rata-rata saham di Bali.
+
+## **Soal Nomor 4**
+Seorang Peneliti sedang meneliti spesies dari kucing di ITS . Dalam penelitiannya ia mengumpulkan data  tiga spesies kucing yaitu kucing oren, kucing hitam dan kucing putih dengan panjangnya masing-masing. 
+Jika : 
+
+diketahui dataset  https://intip.in/datasetprobstat1 <br>
+$H_0$ : Tidak ada perbedaan panjang antara ketiga spesies atau rata-rata panjangnya sama    
+
+- **Soal 4A :** <br> 
+Buatlah masing masing jenis spesies menjadi  3 subjek "Grup" (grup 1,grup 2,grup 3). Lalu Gambarkan plot kuantil normal untuk setiap kelompok dan lihat apakah ada outlier utama dalam homogenitas varians.
+
+**Penyelesaian Soal 4A :**\
+Karena _dataset_ yang digunakan berasal dari _website_, maka sebelum melakukan perhitungan harus _import dataset_ terbebih dahulu. Berikut merupakan code yang digunakan dalam proses _import dataset_
+
+```r
+KucingITS <- read.table("https://rstatisticsandresearch.weebly.com/uploads/1/0/2/6/1026585/onewayanova.txt", header = TRUE)
+```
+Kedua, proses dilanjutkan ke _grouping_ sesuai dengan label yang telah ditentukan pada soal sekaligus melakukan pengecekan value dalam grup tersebut. Berikut merupakan code yang digunakan dalam proses _grouping_
+
+```r
+KucingITS$Group <- as.factor(KucingITS$Group)
+KucingITS$Group <- factor(KucingITS$Group, labels = c("Kucing Oren", "Kucing Hitam", "Kucing Putih"))
+
+Group1 <- subset(KucingITS, Group == "Oren")
+Group2 <- subset(KucingITS, Group == "Hitam")
+Group3 <- subset(KucingITS, Group == "Putih")
+```
+
+Kemudian, proses dilanjutkan dengan visuasilasi plot kuantil normal untuk setiap grup. Tujuan adanya visualisasi adalah untuk melihat distribusi data dan _outlier_ utama dalam homogenitas varians pada masing-masing grup sesuai perintah soal. Berikut adalah code yang digunakan untuk menampilkan distribusi data.
+```r
+qqnorm(Group1$Length, col = "orange")
+qqline(Group1$Length, col = "orange")
+
+qqnorm(Group2$Length, col = "black")
+qqline(Group2$Length, col = "black")
+
+qqnorm(Group3$Length, col = "red")
+qqline(Group3$Length, col = "red")
+```
+Setelah code tersebut dijalankan, maka didapatkan ketiga plot sebagai berikut. <br>
+![4A-1](https://user-images.githubusercontent.com/109916703/207283382-f3cbbb04-b7b8-473f-886a-5884ee267e38.png) <br>
+![4A-2](https://user-images.githubusercontent.com/109916703/207283439-ea72f5d9-1bdb-4fee-bea1-f302c2e1da45.png) <br>
+![4A-3](https://user-images.githubusercontent.com/109916703/207283517-b492dfd3-a1d4-4036-96d1-4868c9bd9125.png)
+
+- **Soal 4B :** <br>
+Carilah atau periksalah _Homogeneity of variances_ nya, berapa nilai p yang didapatkan? Apa hipotesis dan kesimpulan yang dapat diambil?
+
+**Penyelesaian Soal 4B :**\
+Dalam menghitung Homogeneity of variances, digunakan fungsi `bartlett.test()` dengan panjang dari datanya sebagai parameter. Setelah dilakukan perhitungan, didapatkan p-value sebesar 0.8054 dan **lebih dari** nilai 𝛼 = 0.05 sehingga asumsi kesamaan varians terpenuhi. Berikut adalah code yang digunakan dalam proses perhitungan.
+```R
+bartlett.test(Length ~ Group, data = KucingITS)
+```
+Berikut merupakan hasil pengerjaan soal 4B menggunakan RStudio.
+
+![4B](https://user-images.githubusercontent.com/109916703/207294929-c2ab1c0b-1d1c-4055-bdf6-0da19284579f.png)
+
+- **Soal 4C :** <br>
+Untuk uji Anova, buatlah model linier dengan Panjang versus Grup dan beri nama model tersebut model 1.
+
+**Penyelesaian Soal 4C :**\
+Untuk pengujian Anova, digunakan fungsi `lm` dengan panjang dari datanya sebagai parameter. Berikut merupakan code yang digunakan dalam penyelesaian soal 4C.
+```r
+TestingAnova <- lm(Length~Group, data = KucingITS)
+anova(TestingAnova)
+```
+Berikut merupakan hasil yang diperoleh setelah perhitungan dengan RStudio.
+
+![4C](https://user-images.githubusercontent.com/109916703/207295124-f379fd31-fe0a-4173-8026-a9afb052c30c.png)
+
+- **Soal 4D :** <br>
+Dari Hasil Poin C , Berapakah nilai-p ? ,  Apa yang dapat Anda simpulkan dari $H_0$ ?
+
+**Penyelesaian Soal 4D :**\
+Setelah dilakukan perhitungan didapatkan nilai _P-value_ bernilai **0.0013**, dan nilai tersebut jauh lebih kecil daripada tingkat signifikansi 𝛼 = 0.05. $H_0$ ditolak atau dengan kata lain ada setidaknya satu pasang populasi yang memiliki rata-rata panjang berbeda.
+
+- **Soal 4E :** <br>
+Verifikasilah jawaban model 1 dengan Post-hooc test TukeyHSD ,  dari nilai p yang didapatkan apakah satu jenis kucing lebih panjang dari yang lain? Jelaskan.
+
+**Penyelesaian Soal 4E :**\
+Dari soal sebelumnya telah disimpulkan bahwa setidaknya ada satu pasang populasi yang memiliki rata-rata panjang berbeda. Untuk membantu pengecekan, dapat digunakan fungsi `TukeyHSD()` dengan anova `Model1` sebagai parameternya. Berikut adalah code yag digunakan untuk menyelesaikan soal 4E menggunakan Rstudio.
+```r
+TukeyHSD(aov(Model1))
+```
+Setelah dilakukan perhitungan, diperoleh adjusted _p-value_ untuk kucing **Hitam-Oren = 0.0020955** dan **Putih-Hitam = 0.0098353** bernilai kurang dari tingkat signifikansi 𝛼 = 0.05. Sehingga dapat disimpulkan terdapat perbedaan rata-rata yang antara kucing hitam dengan kucing oren dan kucing putih dengan kucing hitam. Hal tersebut juga dapat dilihat pada kolom `diff` dimana terdapat **perbedaan sebesar 0.72 antara kucing Oren-Hitam** dan **0.6171429 antara kucing Putih-Hitam**. Sedangkan untuk _P-value_ **Putih-Oren** memiliki nilai **0.8726158** (lebih besar dari tingkat signifikansi) sehingga perbedaan rata-rata di antara kedua spesies tersebut tidak signifikan (0.1028571). Berikut merupakan hasil pengerjaan soal 4E menggunakan RStudio.
+
+![4E](https://user-images.githubusercontent.com/109916703/207295421-d590e320-f546-4bf3-87a3-58f904892dc9.png)
+
+- **Soal 4F :** <br>
+Visualisasikan data dengan ggplot2
+
+**Penyelesaian Soal 3F :**\
+Sesuai dengan perintah soal, untuk soal 4F dapat diselesaikan dengan fungsi `ggplot2`. Sebelum menggunakan fungsi `ggplot2`, terdapat library yang harus diinstall mnggunakan code berikut. 
+```r
+install.packages("ggplot2")
+library("ggplot2")
+```
+Setelah library terinstall, maka proses perhitungan dapat dilakukan. Berikut adalah code yang digunakan untuk menyelesaikan soal 4F
+```r
+ggplot(myData, aes(x = Group, y = Length)) + geom_boxplot(fill = "gray50", colour = "black") + scale_x_discrete() + xlab("Spesies") + ylab("Panjang (cm)")
+```
+## **Soal Nomor 5**
+Data yang digunakan merupakan hasil eksperimen yang dilakukan untuk mengetahui pengaruh suhu operasi (100˚C, 125˚C dan 150˚C) dan tiga jenis kaca pelat muka (A, B dan C) pada keluaran cahaya tabung osiloskop. Percobaan dilakukan sebanyak 27 kali dan didapat data sebagai berikut: 
+https://intip.in/DatasetPraktikum2Probstat <br>
