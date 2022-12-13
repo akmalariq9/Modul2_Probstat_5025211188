@@ -1,5 +1,5 @@
 # **Modul2_Probstat_5025211188**
-Repository untuk pengerjaan Praktikum Modul 2 Probabilitas dan Statistika
+Repository untuk pengerjaan Praktikum Modul 2 Probabilitas dan Statistika.
 
 ## **Identitas**
 
@@ -195,16 +195,19 @@ qqline(Group2$Length, col = "black")
 qqnorm(Group3$Length, col = "red")
 qqline(Group3$Length, col = "red")
 ```
-Setelah code tersebut dijalankan, maka didapatkan ketiga plot sebagai berikut. <br>
-![4A-1](https://user-images.githubusercontent.com/109916703/207283382-f3cbbb04-b7b8-473f-886a-5884ee267e38.png) <br>
-![4A-2](https://user-images.githubusercontent.com/109916703/207283439-ea72f5d9-1bdb-4fee-bea1-f302c2e1da45.png) <br>
+Setelah code tersebut dijalankan, maka didapatkan ketiga plot sebagai berikut.
+
+![4A-1](https://user-images.githubusercontent.com/109916703/207283382-f3cbbb04-b7b8-473f-886a-5884ee267e38.png)
+
+![4A-2](https://user-images.githubusercontent.com/109916703/207283439-ea72f5d9-1bdb-4fee-bea1-f302c2e1da45.png)
+
 ![4A-3](https://user-images.githubusercontent.com/109916703/207283517-b492dfd3-a1d4-4036-96d1-4868c9bd9125.png)
 
 - **Soal 4B :** <br>
 Carilah atau periksalah _Homogeneity of variances_ nya, berapa nilai p yang didapatkan? Apa hipotesis dan kesimpulan yang dapat diambil?
 
 **Penyelesaian Soal 4B :**\
-Dalam menghitung Homogeneity of variances, digunakan fungsi `bartlett.test()` dengan panjang dari datanya sebagai parameter. Setelah dilakukan perhitungan, didapatkan p-value sebesar 0.8054 dan **lebih dari** nilai 𝛼 = 0.05 sehingga asumsi kesamaan varians terpenuhi. Berikut adalah code yang digunakan dalam proses perhitungan.
+Dalam menghitung _Homogeneity of variances_, digunakan fungsi `bartlett.test()` dengan panjang dari datanya sebagai parameter. Setelah dilakukan perhitungan, didapatkan p-value sebesar 0.8054 dan **lebih dari** nilai 𝛼 = 0.05 sehingga asumsi kesamaan varians terpenuhi. Berikut adalah code yang digunakan dalam proses perhitungan.
 ```R
 bartlett.test(Length ~ Group, data = KucingITS)
 ```
@@ -287,6 +290,7 @@ Setelah data dapat dibaca oleh RStudio, maka visualisasi data dapat dilakukan. U
 qplot(x = Temp, y = Light, data = ExpData) + facet_grid(.~Glass) + geom_point()
 ```
 Berikut merupakan hasil visualisasi data menggunakan RStudio.
+
 ![5a](https://user-images.githubusercontent.com/109916703/207313936-448f8d27-5168-4e34-a5ee-6bec36a23c82.png)
 
 - **Soal 5B :** <br>
@@ -349,11 +353,11 @@ Berikut merupakan hasil pengerjaan soal 5D menggunakan RStudio.
 
 ![5D](https://user-images.githubusercontent.com/109916703/207314426-7a69a60e-0893-4e2d-a868-1b7ed5396a29.png)
 <br>
-# **End Of The Line**
+# **End Of The Line.**
 ```c
 #include<stdio.h>
 
 int main(){
-        printf("Thank you!");
+        printf("Thank you!")
 }
 ```
