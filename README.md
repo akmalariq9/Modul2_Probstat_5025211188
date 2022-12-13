@@ -90,10 +90,10 @@ Jelaskan maksud dari output yang dihasilkan!
 **Penyelesaian Soal 2B :**\
 Dari perhitungan yang dilakukan, didapatkan 2 nilai, yaitu `z-score = 8.9744` dan `p-value = 2.2e-16`. Dari hal tersebut, terlihat bahwa **nilai z lebih besar dibanding nilai kritikal**. Kemudian juga terlihat bahwa **p-value yang didapatkan kurang dari tingkat signifikansi 𝛼 = 0.05.** 
 
-- **Soal 1C :** <br>
+- **Soal 2C :** <br>
 Buatlah kesimpulan berdasarkan P-Value yang dihasilkan!
   
-**Penyelesaian Soal 1C :**\
+**Penyelesaian Soal 2C :**\
 P-value yang diperoleh dari perhitungan memiliki nilai kurang dari tingkat signifikansi 𝛼=0.05. Oleh karena itu **$h_0$ ditolak** dan **$h_1$ diterima**, atau dengan kata lain **terdapat cukup bukti untuk membuktikan klaim bahwa mobil dikemudikan rata-rata lebih dari 20.000 kilometer per tahun.** <br>
 
-## **Soal Nomor 2**
+## **Soal Nomor 3**
