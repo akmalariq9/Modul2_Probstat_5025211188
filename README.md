@@ -246,7 +246,7 @@ Setelah dilakukan perhitungan, diperoleh adjusted _p-value_ untuk kucing **Hitam
 - **Soal 4F :** <br>
 Visualisasikan data dengan ggplot2
 
-**Penyelesaian Soal 3F :**\
+**Penyelesaian Soal 4F :**\
 Sesuai dengan perintah soal, untuk soal 4F dapat diselesaikan dengan fungsi `ggplot2`. Sebelum menggunakan fungsi `ggplot2`, terdapat library yang harus diinstall mnggunakan code berikut. 
 ```r
 install.packages("ggplot2")
@@ -333,7 +333,7 @@ Berikut merupakan hasil pengerjaan soal 5D menggunakan RStudio.
 - **Soal 5E :** <br>
 Gunakan compact letter display untuk menunjukkan perbedaan signifikan antara uji Anova dan uji Tukey
   
-**Penyelesaian Soal 5D :**\
+**Penyelesaian Soal 5E :**\
 Sesuai dengan perintah pada soal, _compact letter_ dapat dibuat menggunakan fungsi `multcomLetterS4()` yang berasal dari library `multcompview`. Kemudian, selanjutnya tambahkan compact letter ke tabel dengan mean dan standar deviasi. Berikut adalah code yang digunakan untuk soal 5D
 ```r
 library(multcompView)
